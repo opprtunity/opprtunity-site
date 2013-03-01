@@ -76,5 +76,3 @@ gem 'linkedin', '0.3.7'
 gem "fuelux-rails", '2.2.0'
 gem "select2-rails", '3.2.1'
 gem 'sucker_punch', '0.2'
-
-gem 'newrelic_rpm'
