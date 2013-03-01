@@ -1,0 +1,45 @@
+$(function() {
+  
+  var $signupWizard = $('#signupWizard');
+  $signupWizard.wizard();
+
+  $('#wizard-prev').on('click', function () {
+    $signupWizard.wizard('previous');
+    $('#wizard-next').val('Next')
+  });
+  $('#wizard-next').on('click', function () {
+    $signupWizard.wizard('next');
+  })
+
+  $signupWizard.on('finished', function(e, data) {
+    //alert('submitted!!');
+    $('#signup_wizard_form').submit()
+    $('#signupModal').modal('toggle')
+  })
+  $signupWizard.on('changed', function(e, data) {
+    var item = $signupWizard.wizard('selectedItem');
+    if(item.step > 1 || item.step <= 5) {
+      $('#wizard-prev').removeAttr('disabled');
+    }
+    if(item.step == 1) {
+      $('#wizard-prev').attr('disabled', 'disabled');
+    }
+    if(item.step == 5) {
+      $('#wizard-next').val('Finish').on('click', function(e) {
+        e.submit()
+      });
+    }
+  })
+})
+
+$(function() {
+  $('form.new_user').sisyphus();
+  $('#offerings').select2({
+    placeholder: 'Select an Industry',
+    closeOnSelect: false,
+  });
+  $('#needs').select2({
+    placeholder: 'Select an Industry',
+    closeOnSelect: false,
+  });  
+})

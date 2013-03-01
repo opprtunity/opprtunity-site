@@ -1,0 +1,93 @@
+<script>
+  if(window.opener) {
+    window.opener.location.reload(true);
+    window.close()
+  }
+</script>
+<div id="signupModal" class="modal hide fade">
+  <%= render partial: 'home/wizard' %>
+</div>
+
+<% if current_user %>
+  <div class="row well well-small" style="margin-top: 18px;">
+    <b class="user_full_name">
+      <%= link_to_if current_user.id == @user.id, "#{@user.first_name} #{@user.last_name}", '#' %>
+    </b>
+  </div>
+  <div class="row">
+    <div class="span2">
+      <%= render '/home/sidebar' %>
+    </div>
+    <div class="span10">
+      <div class="row">
+        <div class="span5">
+          <h3>Needs</h3>
+          <ul>
+            <% @user.needs.each do |need| %>
+              <li><%= need.name %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="span5">
+          <h3>Offering</h3>
+          <ul>
+            <% @user.offerings.each do |offering| %>
+              <li><%= offering.name %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <hr />
+
+      <div class="row">
+        <div class="span10">
+          <h3>About <%= @user.first_name %></h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+      </div>
+      <hr />
+
+      <% if @user.matches.count > 0 %>
+        <div class="row">
+          <div class="span10">
+            <h3>Top Matches</h3>
+            <% @user.matches.each do |match| %>
+              <%= render 'home/match', match: match %>
+            <% end %>
+          </div>
+        </div>
+        <hr />
+      <% end %>
+
+      <div class="row">
+        <div class="span10">
+          <div class="row">
+            <div class="span5">
+              <h3>Upcoming Meetings</h3>
+              <ol>
+                <li>Bill Julia - Tuesday - 2pm - Skype</li>
+                <li>Janis Krums - Tuesday - 5pm - Phone</li>
+                <li>Jane Diller - Friday - 10am - Google+</li>
+              </ol>
+            </div>
+
+            <div class="span5">
+              <h3>Past Meetings</h3>
+              <ol>
+                <li>Bill James - Rate your meeting</li>
+                <li>Steve Jobs - Rate your meeting</li>
+                <li>Barry Bonds - Rate your meeting</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+<% end %>
