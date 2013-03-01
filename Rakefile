@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-ParasquidCs2066::Application.load_tasks
+Opprtunity::Application.load_tasks
