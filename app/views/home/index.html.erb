@@ -9,6 +9,13 @@
 </div>
 
 <% if current_user %>
+  <% if current_user.id %>
+    <div class="row well well-small" style="margin-top: 18px;">
+      <b class="user_full_name">
+        <%= link_to_if current_user.id == @user.id, "Edit Profile", '#' %>
+      </b>
+    </div>
+  <% end %>
   <div class="row">
     <div class="span2">
       <%= render '/home/sidebar' %>

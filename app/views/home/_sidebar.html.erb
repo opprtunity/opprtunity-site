@@ -7,7 +7,6 @@
   <% unless @user.company_url.blank? %><li><%= link_to '<i class="icon-bookmark"></i>Company'.html_safe, @user.company_url %></li><% end %>
   <% unless @user.phone.blank? %><li><span><i class="icon-phone-sign"></i><%= @user.phone %></span></li><% end %>
   <% unless @user.skype.blank? %><li><span><i class="icon-cloud"></i><%= @user.skype %></span></li><% end %>
-  <p><br/><%= link_to_if current_user.id == @user.id, "Edit Profile", '' %></p>
 </ul>
 <div class="row">
   <div class="span2">
