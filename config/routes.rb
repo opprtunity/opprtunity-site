@@ -4,6 +4,9 @@ Opprtunity::Application.routes.draw do
   match '/auth/failure', to: 'sessions#failure'
   match 'signout', to: 'sessions#destroy', as: 'signout'
 
+  match '/about', to: 'home#about'
+  match '/contact', to: 'home#contact'
+
   resources :matches
   resources :users
 
