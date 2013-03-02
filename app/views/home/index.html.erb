@@ -9,7 +9,7 @@
 </div>
 
 <% if current_user %>
-  <% if current_user.id %>
+  <% if current_user.id == @user.id %>
     <div class="row well well-small" style="margin-top: 18px;">
       <b class="user_full_name">
         <%= link_to_if current_user.id == @user.id, "Edit Profile", '#' %>
