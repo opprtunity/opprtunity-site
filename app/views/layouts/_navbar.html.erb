@@ -9,9 +9,14 @@
       <a class="brand" href="/"><%= image_tag 'logo.jpg' %></a>
       <div class="nav-collapse">
         <ul class="nav pull-right">
-          <li><a href="/">Home</a></li>
-          <li><a href="about">About</a></li>
-          <li><a href="contact">Contact</a></li>
+          <li><a href="/">
+            <% if current_user %>
+              My Profile
+            <% else %>
+              Home
+            <% end %>
+          </a></li>
+          <li><a href="/about">About</a></li>
           <li><% if current_user %>
             <%= link_to "Sign out", signout_path %>
           <% else %>
