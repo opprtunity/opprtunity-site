@@ -40,6 +40,9 @@ class User < ActiveRecord::Base
       user.token = auth_hash['credentials']['token']
       user.secret = auth_hash['credentials']['secret']
       user.ip = ip
+      user.about = auth_hash['info']['headline']
+      user.location = auth_hash['extra']['raw_info']['location']['name']
+      user.image = auth_hash['info']['image']
       geo = Geocoder.search(ip).first
       user.zip_code ||= geo.data['zipcode'] if geo
       user.save!

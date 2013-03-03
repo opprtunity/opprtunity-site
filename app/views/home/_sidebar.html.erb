@@ -1,7 +1,7 @@
-<h3><%= image_tag "#{@picture_url}", :class => 'thumbnail', height: 120, width: 120 %></h3>
+<h3><%= image_tag @user.image, :class => 'thumbnail', height: 120, width: 120 %></h3>
 <ul class="nav nav-list">
   <p><strong><%= @user.first_name %> <%= @user.last_name %></strong></p>
-  <p>Zip Code: <%= @user.zip_code %></p>
+  <p><%= @user.location %> (<%= @user.zip_code %>) </p>
   <% unless @user.linked_in.blank? %><li><%= link_to '<i class="icon-linkedin-sign"></i>LinkedIn'.html_safe, @user.linked_in %></li><% end %>
   <% unless @user.google_plus.blank? %><li><%= link_to '<i class="icon-google-plus-sign"></i>Google+'.html_safe, @user.google_plus %></li><% end %>
   <% unless @user.company_url.blank? %><li><%= link_to '<i class="icon-bookmark"></i>Company'.html_safe, @user.company_url %></li><% end %>

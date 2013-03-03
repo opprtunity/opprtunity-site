@@ -1,14 +1,16 @@
 <div>
   <div class="row">
     <div class="span2">
-      <%= image_tag 'shadow-user.jpg', :class => 'thumbnail', height: 120, width: 120 %>
+      <%= link_to match.target do %>
+        <%= image_tag match.target.image, :class => 'thumbnail', height: 120, width: 120 %>
+      <% end %>
     </div>
     <div class="span8">
       <h4>
         <%= link_to match.target do %>
           <%= match.target.first_name %> <%= match.target.last_name %> 
         <% end %>
-        <%= match.target.zip_code %>
+        <%= match.target.location %> (<%= match.target.zip_code %>)
       </h4>
       <p>Needs: <%= match.target.needs.map(&:name).join(', ') %></p>
       <p>Offering: <%= match.target.offerings.map(&:name).join(', ') %></p>

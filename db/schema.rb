@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130224183924) do
+ActiveRecord::Schema.define(:version => 20130303125714) do
 
   create_table "industries", :force => true do |t|
     t.integer "code"
@@ -93,6 +93,8 @@ ActiveRecord::Schema.define(:version => 20130224183924) do
     t.float    "longitude"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
+    t.string   "image"
+    t.string   "location"
   end
 
   add_index "users", ["uid"], :name => "index_users_on_uid"
