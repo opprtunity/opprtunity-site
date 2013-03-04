@@ -6,4 +6,8 @@ class HomeController < ApplicationController
   def about
     render :layout => 'application'
   end
+
+  def contact
+    render :layout => 'application'
+  end  
 end
