@@ -41,16 +41,6 @@
       </div>
       <hr />
 
-      <% if @user.about %>
-        <div class="row">
-          <div class="span10">
-            <h3>About <%= @user.first_name %></h3>
-            <p><%= @user.about %></p>
-          </div>
-        </div>
-        <hr />
-      <% end %>
-
       <% if @user.matches.count > 0 %>
         <div class="row">
           <div class="span10">

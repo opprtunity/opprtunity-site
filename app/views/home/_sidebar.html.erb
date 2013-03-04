@@ -1,4 +1,4 @@
-<h3><%= image_tag @user.image, :class => 'thumbnail', height: 120, width: 120 %></h3>
+<h3><a href="<%= @user.linked_in %>" target="_blank"><%= image_tag @user.image, :class => 'thumbnail', height: 120, width: 120 %></a></h3>
 <ul class="nav nav-list">
   <p><strong><%= @user.first_name %> <%= @user.last_name %></strong></p>
   <p><%= @user.location %> (<%= @user.zip_code %>) </p>
