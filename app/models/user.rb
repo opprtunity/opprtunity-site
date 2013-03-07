@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
 
   after_validation :assign_lat_long
 
-  def matching_users
+  def matching_users_old
     # this still has a _lot_ of room for improvement
     # I think this can be reduced to a single SQL query but my SQL-FU
     # is not yet at that level :(
@@ -63,6 +63,30 @@ class User < ActiveRecord::Base
         .near([self.latitude, self.longitude], NEARBY_THRESHOLD)
     end.flatten
   end
+
+
+  def matching_users
+
+    offerings = []
+    for o in self.offerings
+      offerings.push(o.name)
+    end
+
+    needs = []
+    for n in self.needs
+      needs.push(n.name)
+    end
+
+    # find other users
+    # - who needs this user's offers or who offers this user's needs
+    # - and are within certain radius
+    @matching_users = User.uniq
+      .joins(:needs)
+      .joins(:offerings)
+      .where("needs.name IN (:offerings) OR offerings.name In (:needs)", :offerings => offerings, :needs => needs)
+      .where("users.id != ?", self.id)
+      .near([self.latitude, self.longitude], NEARBY_THRESHOLD)
+  end  
 
   private
 
