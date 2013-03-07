@@ -67,15 +67,9 @@ class User < ActiveRecord::Base
 
   def matching_users
 
-    offerings = []
-    for o in self.offerings
-      offerings.push(o.name)
-    end
+    @offerings = @user.offerings.map{|i| i.name}.flatten
 
-    needs = []
-    for n in self.needs
-      needs.push(n.name)
-    end
+    @needs = @user.needs.map{|i| i.name}.flatten
 
     # find other users
     # - who needs this user's offers or who offers this user's needs
@@ -83,7 +77,7 @@ class User < ActiveRecord::Base
     @matching_users = User.uniq
       .joins(:needs)
       .joins(:offerings)
-      .where("needs.name IN (:offerings) OR offerings.name In (:needs)", :offerings => offerings, :needs => needs)
+      .where("needs.name IN (:offerings) OR offerings.name In (:needs)", :offerings => @offerings, :needs => @needs)
       .where("users.id != ?", self.id)
       .near([self.latitude, self.longitude], NEARBY_THRESHOLD)
   end  
