@@ -61,6 +61,8 @@ gem 'factory_girl_rails'
 gem 'will_paginate', '~> 3.0'
 gem 'area', '0.10.0'
 gem 'geocoder'
+gem 'delayed_job_active_record'
+gem 'workless', '~> 1.1.1'
 
 group :assets do
   gem "twitter-bootstrap-rails", '2.2.3'

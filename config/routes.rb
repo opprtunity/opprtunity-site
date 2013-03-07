@@ -21,6 +21,7 @@ Opprtunity::Application.routes.draw do
         resources :needs, only: [:get]
         resources :offerings, only: [:get]
         member do 
+          get 'update_matches'
           get 'matches'
           scope '/meetings' do
             get 'upcoming'

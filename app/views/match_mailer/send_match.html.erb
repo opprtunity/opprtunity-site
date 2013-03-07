@@ -1,0 +1,21 @@
+Hey <%= @user.first_name %>,
+ 
+We've found you an incredible opportunity to do business with <%= @target_user.first_name %> <%= @target_user.last_name %>!
+
+<% if @matching_offerings.length %>
+<%= @target_user.first_name %> is looking for <%= @matching_offerings.join(", ") %> from you.
+<% end %>
+
+<% if @matching_needs.length %>
+And you are looking for <%= @matching_needs.join(", ") %> from <%= @target_user.first_name %>.
+<% end %>
+
+Here are a few ways you can contact <%= @target_user.first_name %>:
+
+<% if @target_user.skype? %>
+Contact <%= @target_user.first_name %> using Skype:   <%= @target_user.skype %>
+<% elsif @target_user.email? %>
+Contact <%= @target_user.first_name %> using Email:   <%= @target_user.email %>
+<% elsif @target_user.phone? %>
+Contact <%= @target_user.first_name %> using Phone:   <%= @target_user.phone %>
+<% end %>

@@ -1,4 +1,12 @@
 class UsersController < ApplicationController
+
+  class User < ::User
+    # we override this method so we can expose nested attributes
+    def serializable_hash(options = {})
+      super include: [:matches, :needs, :offerings, :upcoming_meetings, :past_meetings]
+    end
+  end
+
   def update
     # ideally this submits to the api
     # for now we access the db directly
@@ -29,21 +37,65 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find params[:id]
-
-    if current_user && current_user.id == @user.id
-      client = LinkedIn::Client.new ENV['LINKEDIN_KEY'], ENV[ 'LINKEDIN_SECRET']
-      rtoken = client.request_token.token
-      rsecret = client.request_token.secret
-
-      # TODO: we need to cache this so we don't request authorization on every request
-      client.authorize_from_access(@user.token, @user.secret)
-      
-      @picture_url = client.profile(fields: ['picture-url']).picture_url
-      # @picture_url = view_context.image_path('shadow-user.jpg')
-    else
-      @picture_url = view_context.image_path('shadow-user.jpg')
-    end
-
     render 'home/index'
   end
+
+  def update_matches
+
+    @user = User.find(params[:id])
+
+    offerings = []
+    for o in @user.offerings
+      offerings.push(o.name)
+    end
+
+    needs = []
+    for n in @user.needs
+      needs.push(n.name)
+    end
+
+    # find other users
+    # - who needs this user's offers or who offers this user's needs
+    # - and are within certain radius
+    @matching_users = User.uniq
+      .joins(:needs)
+      .joins(:offerings)
+      .where("needs.name IN (:offerings) OR offerings.name In (:needs)", :offerings => offerings, :needs => needs)
+      .where("users.id != ?", @user.id)
+      .near(@user.zip_code, 50)
+
+    for matching_user in @matching_users
+      MatchesController.delay.update_match(@user.id, matching_user.id)
+    end
+
+    expose @matching_users
+
+  end  
+
+  def matches
+    user = User.find(params[:id])
+    expose user.matches
+  end
+
+  def upcoming
+    user = User.find(params[:id])
+    expose user.upcoming_meetings
+  end
+
+  def past
+    user = User.find(params[:id])
+    expose user.past_meetings
+  end  
+
+  def create
+    user = User.create!(params[:user])
+    expose user
+  end  
+
+  def destroy
+    user = User.find(params[:id])
+    user.delete
+  end
+
+
 end
