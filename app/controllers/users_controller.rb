@@ -47,8 +47,8 @@ class UsersController < ApplicationController
     @matching_users = @user.matching_users
 
     # now queue up for updating the match
-    for matching_user in @matching_users
-      MatchesController.delay.update_match(@user.id, matching_user.id)
+    for @matching_user in @matching_users
+      User.delay.update_match(@user.id, @matching_user.id)
     end
 
     expose @matching_users
