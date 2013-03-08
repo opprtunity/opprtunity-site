@@ -44,28 +44,11 @@ class UsersController < ApplicationController
 
     @user = User.find(params[:id])
 
-    offerings = []
-    for o in @user.offerings
-      offerings.push(o.name)
-    end
+    @matching_users = @user.matching_users
 
-    needs = []
-    for n in @user.needs
-      needs.push(n.name)
-    end
-
-    # find other users
-    # - who needs this user's offers or who offers this user's needs
-    # - and are within certain radius
-    @matching_users = User.uniq
-      .joins(:needs)
-      .joins(:offerings)
-      .where("needs.name IN (:offerings) OR offerings.name In (:needs)", :offerings => offerings, :needs => needs)
-      .where("users.id != ?", @user.id)
-      .near(@user.zip_code, 50)
-
-    for matching_user in @matching_users
-      MatchesController.delay.update_match(@user.id, matching_user.id)
+    # now queue up for updating the match
+    for @matching_user in @matching_users
+      User.delay.update_match(@user.id, @matching_user.id)
     end
 
     expose @matching_users

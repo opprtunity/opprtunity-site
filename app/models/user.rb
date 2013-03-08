@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
 
   after_validation :assign_lat_long
 
-  def matching_users
+  def matching_users_old
     # this still has a _lot_ of room for improvement
     # I think this can be reduced to a single SQL query but my SQL-FU
     # is not yet at that level :(
@@ -62,6 +62,51 @@ class User < ActiveRecord::Base
         .where("users.id != #{self.id}")
         .near([self.latitude, self.longitude], NEARBY_THRESHOLD)
     end.flatten
+  end
+
+
+  def matching_users
+
+    @offerings = self.offerings.map{|i| i.name}.flatten
+
+    @needs = self.needs.map{|i| i.name}.flatten
+
+    # find other users
+    # - who needs this user's offers or who offers this user's needs
+    # - and are within certain radius
+    @matching_users = User.uniq
+      .joins(:needs)
+      .joins(:offerings)
+      .where("needs.name IN (:offerings) OR offerings.name In (:needs)", :offerings => @offerings, :needs => @needs)
+      .where("users.id != ?", self.id)
+      .near([self.latitude, self.longitude], NEARBY_THRESHOLD)
+  end
+
+  def self.update_match(user_id, target_id)
+    
+    user = User.find(user_id)
+    target_user = User.find(target_id)
+
+    match = user.matches.find_or_initialize_by_target_id(target_id)
+
+    # if it is create, then mail it
+    if match.new_record?
+      match.save!
+
+      # send mail to user
+      mail = MatchMailer.send_match(user, target_user)      
+
+      reciprocal_match = target_user.matches.find_or_initialize_by_target_id(user_id)
+
+      if reciprocal_match.new_record?
+        reciprocal_match.save!
+
+        # also send mail to target user as well
+        mail = MatchMailer.send_match(target_user, user)
+      end
+
+    end
+
   end
 
   private
