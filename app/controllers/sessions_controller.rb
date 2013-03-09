@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
   def create
-    puts auth_hash['extra']['raw_info']['location']['name'].to_yaml
     session[:user] = User.create_from_auth_hash(auth_hash, request.ip).id
     redirect_to root_url, notice: 'Signed in!'
   end

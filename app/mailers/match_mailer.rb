@@ -2,8 +2,12 @@ class MatchMailer < ActionMailer::Base
   default from: "Opprtunity <bill@opprtunity.com>"
 
   def send_match(user, target_user)
+
     @user = user
     @target_user = target_user
+
+    Rails.logger.info "========= sending match to #{@user.to_yaml}"
+    Rails.logger.info "========= sending match to #{@target_user.to_yaml}"
 
     @matching_needs = []
     for n in @user.needs
@@ -19,7 +23,7 @@ class MatchMailer < ActionMailer::Base
       end
     end
 
-    mail(:to => @user.email, :subject => "Opprtunity - found a match")
+    mail(:to => @user.email, :subject => "Opprtunity - found a match").deliver
   end   
 
 end

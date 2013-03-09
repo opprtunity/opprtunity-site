@@ -51,20 +51,6 @@ class User < ActiveRecord::Base
 
   after_validation :assign_lat_long
 
-  def matching_users_old
-    # this still has a _lot_ of room for improvement
-    # I think this can be reduced to a single SQL query but my SQL-FU
-    # is not yet at that level :(
-
-    needs.map do |n|
-      ::User.joins(:offerings)
-        .where('offerings.name' => n.name)
-        .where("users.id != #{self.id}")
-        .near([self.latitude, self.longitude], NEARBY_THRESHOLD)
-    end.flatten
-  end
-
-
   def matching_users
 
     @offerings = self.offerings.map{|i| i.name}.flatten
@@ -94,7 +80,8 @@ class User < ActiveRecord::Base
       match.save!
 
       # send mail to user
-      mail = MatchMailer.send_match(user, target_user)      
+      mail = MatchMailer.send_match(user, target_user).deliver
+      Rails.logger.info mail      
 
       reciprocal_match = target_user.matches.find_or_initialize_by_target_id(user_id)
 
@@ -102,7 +89,8 @@ class User < ActiveRecord::Base
         reciprocal_match.save!
 
         # also send mail to target user as well
-        mail = MatchMailer.send_match(target_user, user)
+        mail = MatchMailer.send_match(target_user, user).deliver
+        Rails.logger.info mail
       end
 
     end

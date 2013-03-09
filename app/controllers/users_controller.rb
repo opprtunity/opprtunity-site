@@ -28,6 +28,7 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         @user.registered = true
         @user.save!
+        find_and_process_matches(@user)
         format.html { redirect_to :back, notice: 'User successfully updated.' }
       else
         format.html { redirect_to :back, error: 'Sorry, something went wrong.' }
@@ -40,20 +41,20 @@ class UsersController < ApplicationController
     render 'home/index'
   end
 
-  def update_matches
+  # def update_matches
 
-    @user = User.find(params[:id])
+  #   @user = User.find(params[:id])
 
-    @matching_users = @user.matching_users
+  #   @matching_users = @user.matching_users
 
-    # now queue up for updating the match
-    for @matching_user in @matching_users
-      User.delay.update_match(@user.id, @matching_user.id)
-    end
+  #   # now queue up for updating the match
+  #   for @matching_user in @matching_users
+  #     User.delay.update_match(@user.id, @matching_user.id)
+  #   end
 
-    expose @matching_users
+  #   expose @matching_users
 
-  end  
+  # end  
 
   def matches
     user = User.find(params[:id])
@@ -79,6 +80,17 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     user.delete
   end
+
+  private 
+
+    def find_and_process_matches(user)
+      matching_users = user.matching_users
+      puts "found matching users? #{matching_users.count}"
+      # now queue up for updating the match
+      for matching_user in matching_users
+        User.delay.update_match(user.id, matching_user.id)
+      end
+    end
 
 
 end

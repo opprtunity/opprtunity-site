@@ -4,12 +4,14 @@
     window.close()
   }
 </script>
-<div id="signupModal" class="modal hide fade">
-  <%= render partial: 'home/wizard' %>
-</div>
+<% if params[:controller] == 'home' %>
+  <div id="signupModal" class="modal hide fade">
+    <%= render partial: 'home/wizard' %>
+  </div>
+<% end %>
 
 <% if current_user %>
-  <% if current_user.id == @user.id %>
+  <% if current_user.id == @user.id && params[:controller] == 'home' %>
     <div class="row well well-small" style="margin-top: 18px;">
       <b class="user_full_name">
         <%= link_to_if current_user.id == @user.id, "Edit Profile", '#' %>
@@ -53,6 +55,7 @@
         <hr />
       <% end %>
 
+      <% if params[:controller] == 'home' %>
       <div class="row">
         <div class="span10">
           <div class="row">
@@ -107,6 +110,7 @@
           </div>
         </div>
       </div>
+      <% end %>
 
     </div>
   </div>
