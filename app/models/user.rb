@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
     @needs = self.needs.map{|i| i.name}.flatten
 
     # find other users
-    # - who needs this user's offers or who offers this user's needs
+    # - who needs this user's offerings or who offers this user's needs
     # - and are within certain radius
     @matching_users = User.uniq
       .joins(:needs)
@@ -68,31 +68,75 @@ class User < ActiveRecord::Base
       .near([self.latitude, self.longitude], NEARBY_THRESHOLD)
   end
 
-  def self.update_match(user_id, target_id)
+  def self.update_match(source_id, target_id)
     
-    user = User.find(user_id)
+    source_user = User.find(source_id)
     target_user = User.find(target_id)
 
-    match = user.matches.find_or_initialize_by_target_id(target_id)
+    match_type_actual = "none"
+    match_type = "none"
+    match_type_reverse = "none"
 
-    # if it is create, then mail it
-    if match.new_record?
-      match.save!
+    matched_needs = []
+    for n in source_user.needs
+      for t_o in target_user.offerings
+      matched_needs.push(n.name) if n.name == t_o.name
+      end
+    end
 
-      # send mail to user
-      mail = MatchMailer.send_match(user, target_user).deliver
-      Rails.logger.info mail      
+    matched_offerings = []
+    for o in source_user.offerings
+      for t_n in target_user.needs
+      matched_offerings.push(o.name) if o.name == t_n.name
+      end
+    end
 
-      reciprocal_match = target_user.matches.find_or_initialize_by_target_id(user_id)
+    # the source user's needs are offered by the target user
+    # the target user's offerings are needed by the source user
+    if matched_needs.length > 0
+      needs_match = source_user.matches.find_or_initialize_by_target_id(target_id)
 
-      if reciprocal_match.new_record?
-        reciprocal_match.save!
+      match_type_actual = "needs"
 
-        # also send mail to target user as well
-        mail = MatchMailer.send_match(target_user, user).deliver
-        Rails.logger.info mail
+      if needs_match.new_record?
+        needs_match.save!
+
+        match_type = "needs"
       end
 
+    end
+
+    # the source user's offerings are needed by the target user
+    # the target user's needs are offered by the source user
+    if matched_offerings.length > 0
+      offerings_match = target_user.matches.find_or_initialize_by_target_id(source_id)
+
+      match_type_actual == "needs" ? "reciprocal" : "offerings"
+
+      if offerings_match.new_record?
+        offerings_match.save!
+
+        match_type == "needs" ? "reciprocal" : "offerings"
+      end
+
+    end
+
+    Rails.logger.info "========= match_type_actual: #{match_type_actual}, match_type: #{match_type} "
+
+    # used below
+    match_type_reverse = "reciprocal" if match_type == "reciprocal"
+    match_type_reverse = "needs" if match_type == "offerings"
+    match_type_reverse = "offerings" if match_type == "needs"
+
+    if match_type != "none" and match_type_reverse != "none"
+
+      # send mail to source_user
+      mail = MatchMailer.send_match(source_user, target_user, matched_needs, matched_offerings, match_type).deliver
+      Rails.logger.info mail
+
+      # send mail to target_user
+      mail = MatchMailer.send_match(target_user, source_user, matched_offerings, matched_needs, match_type_reverse).deliver
+      Rails.logger.info mail
     end
 
   end

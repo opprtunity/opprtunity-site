@@ -1,13 +1,17 @@
-Hey <%= @user.first_name %>,
+Hey <%= @source_user.first_name %>,
  
 We've found you an incredible opportunity to do business with <%= @target_user.first_name %> <%= @target_user.last_name %>!
 
-<% if @matching_offerings.length %>
-<%= @target_user.first_name %> is looking for <%= @matching_offerings.join(", ") %> from you.
-<% end %>
+<% if @match_type == "reciprocal" %>
+	<%= @target_user.first_name %> offers <%= @matched_needs %>, and is looking for <%= @matched_offerings %>.
 
-<% if @matching_needs.length %>
-And you are looking for <%= @matching_needs.join(", ") %> from <%= @target_user.first_name %>.
+	You are looking for <%= @matched_needs %>, and offer <%= @matched_offerings %>.
+
+	Sounds like a great match!
+<% elsif @match_type == "needs" %>
+	<%= @target_user.first_name %> offers <%= @matched_needs %>, and may just be the person you are looking for.
+<% elsif @match_type == "offerings" %>
+	<%= @target_user.first_name %> is looking for <%= @matched_offerings %> which you said that you offer.
 <% end %>
 
 Here are a few ways you can contact <%= @target_user.first_name %>:
