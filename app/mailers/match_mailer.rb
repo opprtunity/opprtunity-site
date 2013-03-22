@@ -25,8 +25,8 @@ class MatchMailer < ActionMailer::Base
       @matched_offerings = @matched_offerings.join(", ")
     end
 
-    Rails.logger.info "========= sending #{@match_type} match with #{@target_user.first_name} #{@target_user.last_name} to #{@source_user.first_name} #{@source_user.last_name} "
-    Rails.logger.info "========= sending #{@match_type} match ... needs are #{@matched_needs} ... offerings are #{@matched_offerings}"
+    puts "========= sending #{@match_type} match (#{@source_user.email}) with #{@target_user.first_name} #{@target_user.last_name} to #{@source_user.first_name} #{@source_user.last_name} "
+    puts "========= sending #{@match_type} match ... needs are #{@matched_needs} ... offerings are #{@matched_offerings}"
 
 
     mail(:to => @source_user.email, :subject => "Opprtunity - found a match").deliver
