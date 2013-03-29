@@ -137,12 +137,13 @@ class User < ActiveRecord::Base
     if match_type != "none" and match_type_reverse != "none"
 
       # send mail to source_user
-      mail = MatchMailer.send_match(source_user, target_user, matched_needs, matched_offerings, match_type).deliver
-      #puts mail
+      mail = MatchMailer.send_match(source_user, target_user, matched_needs, matched_offerings, match_type)
+      puts "========= source mail sent: #{mail}"
 
       # send mail to target_user
-      mail = MatchMailer.send_match(target_user, source_user, matched_offerings, matched_needs, match_type_reverse).deliver
-      #puts mail
+      mail = MatchMailer.send_match(target_user, source_user, matched_offerings, matched_needs, match_type_reverse)
+      puts "========= target mail sent: #{mail}"
+
     end
 
   end

@@ -18,15 +18,16 @@ Opprtunity::Application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.delivery_method = :smtp
-  # to test the mailer... hard code the username & password
+  
+  # Amazon SES
   ActionMailer::Base.smtp_settings = {
-    :address        => "smtp.gmail.com",
-    :port           => "587",
-    :authentication => :plain,
+    :address              => ENV['MAILSERVER_ADDRESS'],
+    :authentication       => :login,
     :enable_starttls_auto => true,
-    :domain         => 'gmail.com',
-    :user_name      => 'jeffdonthemic.test@gmail.com',
-    :password       => 'q9]1Bm6z3O'
+    :port                 => 465,
+    :domain               => ENV['MAILSERVER_DOMAIN'],
+    :user_name            => ENV['MAILSERVER_USERNAME'],
+    :password             => ENV['MAILSERVER_PASSWORD']
   }    
 
   # Print deprecation notices to the Rails logger

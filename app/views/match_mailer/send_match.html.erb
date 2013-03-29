@@ -1,6 +1,10 @@
-<p>Hey <%= @source_user.first_name %>,</p>
- 
-<p>We've found you an incredible opportunity to do business with <%= @target_user.first_name %> <%= @target_user.last_name %>!</p>
+<p><img src="http://www.opprtunity.com/assets/logo.jpg" alt="Opprtunity"></p>
+
+<p>Hi <%= @source_user.first_name %>,</p>
+
+<p><strong>Opprtunity has just found you an opportunity!</strong></p>
+
+<p>We strongly recommend you take the time to reach out to <%= @target_user.first_name %> <%= @target_user.last_name %> (<%= @target_user.location %>). Here's why you should connect with <%= @target_user.first_name %>.</p>
 
 <% if @match_type == "reciprocal" %>
 	<p><%= @target_user.first_name %> offers <%= @matched_needs %>, and is looking for <%= @matched_offerings %>.You are looking for <%= @matched_needs %>, and offer <%= @matched_offerings %>.</p>
@@ -13,18 +17,21 @@
 	<p><%= @target_user.first_name %> is looking for <%= @matched_offerings %> which you said that you offer.</p>
 <% end %>
 
-<p>Here are a few ways you can contact <%= @target_user.first_name %>:</p>
+<p>Because there is an opportunity for both of you to do business, we're sending <%= @target_user.first_name %> this email alert as well.  Here's how <%= @target_user.first_name %> likes to communicate:</p>
 
 <p>
-<% if @target_user.skype? %>
-Contact <%= @target_user.first_name %> using Skype:   <%= @target_user.skype %><br/>
-<% end %>
-
-<% if @target_user.email? %>
-Contact <%= @target_user.first_name %> using Email:   <%= @target_user.email %><br/>
-<% end %>
-
-<% if @target_user.phone? %>
-Contact <%= @target_user.first_name %> using Phone:   <%= @target_user.phone %>
-<% end %>
+<ul>
+	<% if @target_user.phone? %><li>Phone: <%= @target_user.phone %></li><% end %>
+	<% if @target_user.email? %><li>Email: <%= @target_user.email %></li><% end %>
+	<% if @target_user.skype? %><li>Skype: <%= @target_user.skype %></li><% end %>
+	<% if @target_user.google_plus? %><li>Google+: <a href="<%= @target_user.google_plus %>"><%= @target_user.google_plus %></a></li><% end %>
+</ul>
 </p>
+
+<p>To learn more about <%= @target_user.first_name %>, you can also <a href="http://www.opprtunity.com/users/<%= @target_user.id %>">visit his Opprtunity profile</a>.</p>
+
+<p>Good Luck!</p>
+
+<p>Opprtunity Team<br/>
+<a href="http://www.opprtunity.com">http://www.opprtunity.com</a><br/>
+<a href="mailto:info@opprtunity.com">info@opprtunity.com</p>

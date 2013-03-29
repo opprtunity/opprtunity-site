@@ -1,5 +1,5 @@
 class MatchMailer < ActionMailer::Base
-  default from: "Opprtunity <bill@opprtunity.com>"
+  default from: "Opprtunity <info@opprtunity.com>"
 
   def send_match(source_user, target_user, matched_needs, matched_offerings, match_type)
 
@@ -25,11 +25,18 @@ class MatchMailer < ActionMailer::Base
       @matched_offerings = @matched_offerings.join(", ")
     end
 
-    puts "========= sending #{@match_type} match (#{@source_user.email}) with #{@target_user.first_name} #{@target_user.last_name} to #{@source_user.first_name} #{@source_user.last_name} "
+    puts "========= sending #{@match_type} match with #{@target_user.first_name} #{@target_user.last_name} to #{@source_user.first_name} #{@source_user.last_name} (#{@source_user.email})"
     puts "========= sending #{@match_type} match ... needs are #{@matched_needs} ... offerings are #{@matched_offerings}"
 
-
-    mail(:to => @source_user.email, :subject => "Opprtunity - found a match").deliver
+    if ENV['MAILER_ENABLED'].eql?('true')
+      mail(:to => @source_user.email, :subject => "Opprtunity - We found a match!").deliver
+    else
+      puts "========= MATCHING EMAIL NOT SENT OUT. MAILER IS CURRENTLY DISABLED."
+    end    
   end   
+
+  def test_mailer
+    mail(:to => 'jeff@jeffdouglas.com', :subject => "Opprtunity - We found a match!").deliver
+  end     
 
 end
