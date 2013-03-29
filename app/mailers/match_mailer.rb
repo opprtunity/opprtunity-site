@@ -25,13 +25,13 @@ class MatchMailer < ActionMailer::Base
       @matched_offerings = @matched_offerings.join(", ")
     end
 
-    puts "========= sending #{@match_type} match with #{@target_user.first_name} #{@target_user.last_name} to #{@source_user.first_name} #{@source_user.last_name} (#{@source_user.email})"
-    puts "========= sending #{@match_type} match ... needs are #{@matched_needs} ... offerings are #{@matched_offerings}"
+    Rails.logger.info "========= sending #{@match_type} match with #{@target_user.first_name} #{@target_user.last_name} to #{@source_user.first_name} #{@source_user.last_name} (#{@source_user.email})"
+    Rails.logger.info  "========= sending #{@match_type} match ... needs are #{@matched_needs} ... offerings are #{@matched_offerings}"
 
     if ENV['MAILER_ENABLED'].eql?('true')
       mail(:to => @source_user.email, :subject => "Opprtunity - We found a match!").deliver
     else
-      puts "========= MATCHING EMAIL NOT SENT OUT. MAILER IS CURRENTLY DISABLED."
+      Rails.logger.info  "========= MATCHING EMAIL NOT SENT OUT. MAILER IS CURRENTLY DISABLED."
     end    
   end   
 

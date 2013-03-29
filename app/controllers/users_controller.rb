@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         @user.registered = true
         @user.save!
-        puts "===finding and processing matches after user update"
+        Rails.logger.info  "===finding and processing matches after user update"
         find_and_process_matches(@user)
         format.html { redirect_to :back, notice: 'User successfully updated.' }
       else
@@ -86,10 +86,10 @@ class UsersController < ApplicationController
 
     def find_and_process_matches(user)
       matching_users = user.matching_users
-      puts "found matching users? #{matching_users.count}"
+      Rails.logger.info  "found matching users? #{matching_users.count}"
       # now queue up for updating the match
       for matching_user in matching_users
-        puts ".....adding a match to delayte job: #{user.id} matches #{matching_user.id}"
+        Rails.logger.info  ".....adding a match to delayte job: #{user.id} matches #{matching_user.id}"
         User.update_match(user.id, matching_user.id)
       end
     end

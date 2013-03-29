@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
 
   def self.update_match(source_id, target_id)
 
-    puts "==== running update_match for #{source_id} and #{target_id}"
+    Rails.logger.info "==== running update_match for #{source_id} and #{target_id}"
     
     source_user = User.find(source_id)
     target_user = User.find(target_id)
@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
       end
     end
 
-    puts "======== matched_needs: #{matched_needs}"
+    Rails.logger.info  "======== matched_needs: #{matched_needs}"
 
     matched_offerings = []
     for o in source_user.offerings
@@ -95,7 +95,7 @@ class User < ActiveRecord::Base
       end
     end
 
-    puts "======== matched_offerings #{matched_offerings}"
+    Rails.logger.info  "======== matched_offerings #{matched_offerings}"
 
     # the source user's needs are offered by the target user
     # the target user's offerings are needed by the source user
@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
 
     end
 
-    puts "========= match_type_actual: #{match_type_actual}, match_type: #{match_type} "
+    Rails.logger.info  "========= match_type_actual: #{match_type_actual}, match_type: #{match_type} "
 
     # used below
     match_type_reverse = "reciprocal" if match_type == "reciprocal"
@@ -138,11 +138,11 @@ class User < ActiveRecord::Base
 
       # send mail to source_user
       mail = MatchMailer.send_match(source_user, target_user, matched_needs, matched_offerings, match_type)
-      puts "========= source mail sent: #{mail}"
+      Rails.logger.info  "========= source mail sent: #{mail}"
 
       # send mail to target_user
       mail = MatchMailer.send_match(target_user, source_user, matched_offerings, matched_needs, match_type_reverse)
-      puts "========= target mail sent: #{mail}"
+      Rails.logger.info  "========= target mail sent: #{mail}"
 
     end
 
