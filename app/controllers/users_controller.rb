@@ -58,8 +58,7 @@ class UsersController < ApplicationController
   # end  
 
   def matches
-    user = User.find(params[:id])
-    expose user.matches
+    @user = User.find(params[:id])
   end
 
   def upcoming

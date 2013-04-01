@@ -10,6 +10,8 @@ Opprtunity::Application.routes.draw do
   resources :matches
   resources :users
 
+  match '/users/:id/matches', to: 'users#matches'
+
   namespace :api do
     api version: 1 do
       namespace 'industry' do

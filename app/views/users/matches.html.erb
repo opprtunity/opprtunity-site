@@ -1,0 +1,14 @@
+<h1>Matches for <%= @user.first_name %> <%= @user.last_name %></h1>
+
+<p><%= @user.location %> (<%= @user.zip_code %>)<br/>
+Needs: <%= @user.needs_list %><br/>
+Offering: <%= @user.offerings_list %></p>
+
+<hr>
+
+<% @user.matching_users.each do |match| %>
+	<p><%= link_to "#{match.first_name} #{match.last_name}", match%><br/>
+	<%= match.location %> (<%= match.zip_code %>)<br/>
+	Needs: <%= match.needs_list %><br/>
+	Offering: <%= match.offerings_list %></p>
+<% end %>

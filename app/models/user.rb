@@ -21,12 +21,39 @@ class User < ActiveRecord::Base
   has_many :meetings
   has_many :matches
 
+  after_validation :assign_lat_long
+
   def upcoming_meetings
     meetings.upcoming.all
   end
 
   def past_meetings
     meetings.past.all
+  end
+
+  def needs_list
+    needs.map(&:name).join(', ')
+  end
+
+  def offerings_list
+    offerings.map(&:name).join(', ')
+  end
+
+  def matching_users
+
+    @offerings = self.offerings.map{|i| i.name}.flatten
+
+    @needs = self.needs.map{|i| i.name}.flatten
+
+    # find other users
+    # - who needs this user's offerings or who offers this user's needs
+    # - and are within certain radius
+    @matching_users = User.uniq
+      .joins(:needs)
+      .joins(:offerings)
+      .where("needs.name IN (:offerings) OR offerings.name In (:needs)", :offerings => @offerings, :needs => @needs)
+      .where("users.id != ?", self.id)
+      .near([self.latitude, self.longitude], NEARBY_THRESHOLD)
   end
 
   def self.create_from_auth_hash(auth_hash, ip)
@@ -47,26 +74,7 @@ class User < ActiveRecord::Base
       user.zip_code ||= geo.data['zipcode'] if geo
       user.save!
     end
-  end
-
-  after_validation :assign_lat_long
-
-  def matching_users
-
-    @offerings = self.offerings.map{|i| i.name}.flatten
-
-    @needs = self.needs.map{|i| i.name}.flatten
-
-    # find other users
-    # - who needs this user's offerings or who offers this user's needs
-    # - and are within certain radius
-    @matching_users = User.uniq
-      .joins(:needs)
-      .joins(:offerings)
-      .where("needs.name IN (:offerings) OR offerings.name In (:needs)", :offerings => @offerings, :needs => @needs)
-      .where("users.id != ?", self.id)
-      .near([self.latitude, self.longitude], NEARBY_THRESHOLD)
-  end
+  end  
 
   def self.update_match(source_id, target_id)
 
