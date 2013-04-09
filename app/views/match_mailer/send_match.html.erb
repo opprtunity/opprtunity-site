@@ -7,7 +7,7 @@
 <p>We strongly recommend you take the time to reach out to <%= @target_user.first_name %> <%= @target_user.last_name %> (<%= @target_user.location %>). Here's why you should connect with <%= @target_user.first_name %>.</p>
 
 <% if @match_type == "reciprocal" %>
-	<p><%= @target_user.first_name %> offers <%= @matched_needs %>, and is looking for <%= @matched_offerings %>.You are looking for <%= @matched_needs %>, and offer <%= @matched_offerings %>.</p>
+	<p><%= @target_user.first_name %> offers <%= @matched_needs %>, and is looking for <%= @matched_offerings %>. You are looking for <%= @matched_needs %>, and offer <%= @matched_offerings %>.</p>
 	<p>Sounds like a great match!</p>
 
 <% elsif @match_type == "needs" %>
@@ -18,7 +18,7 @@
 	
 <% end %>
 
-<p>Because there is an opportunity for both of you to do business, we're sending <%= @target_user.first_name %> this email alert as well.  Here's how <%= @target_user.first_name %> likes to communicate:</p>
+<p>Because there is an opportunity for both of you to do business, we're sending <%= @target_user.first_name %> this email alert as well. Here's how <%= @target_user.first_name %> likes to communicate:</p>
 
 <p>
 <ul>
