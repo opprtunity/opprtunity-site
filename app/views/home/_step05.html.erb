@@ -1,8 +1,50 @@
 <div class="title">
-  <h1>Congrats!</h1>
+  <h1>Ways I connect.</h1>
 </div>
-<p>Thank you for completing your Opprtunity Profile.  We are now searching the network in search of mutual opportunities for you to do business with other local professionals. Each time we discover an opprtunity, we will send you an email alert.  Remember, these are local professionals who have indicated they need what you sell... and who sell what you need! You will receive leads each time new members join... and each time you update your profile with new needs.</p>
 
-<p>No more logging into an abyss of social networks looking for opportunities. Let Opprtunity find them for you!</p>
+<div class="wizard-connect">
+  <div class="input-prepend">
+    <span class="add-on"><i class="icon-envelope icon-2x"></i></span>
+    <%= f.input_field :email,
+      label: false,
+      :style => 'width: 460px',
+      :id => 'email',
+      type: 'email',
+      placeholder: 'Email Address'
+    %>
+  </div>
 
-<p>The new way to network in 2013...</p>
+  <div class="input-prepend">
+    <span class="add-on"><i class="icon-phone icon-2x"></i></span>
+    <%= f.input_field :phone,
+      label: false,
+      :style => 'width: 460px',
+      :id => 'phone',
+      type: 'tel',
+      placeholder: 'Phone Number'
+    %>
+  </div>
+
+  <div class="input-prepend">
+    <span class="add-on"><i class="icon-cloud icon-2x"></i></span>
+    <%= f.input_field :skype,
+      label: false,
+      :style => 'width: 460px',
+      :id => 'skype',
+      type: 'text',
+      placeholder: 'Skype ID'
+    %>
+  </div>
+
+  <div class="input-prepend">
+    <span class="add-on"><i class="icon-google-plus icon-2x"></i></span>
+    <%= f.input_field :google_plus,
+      label: false,
+      :style => 'width: 460px',
+      :id => 'google_plus',
+      type: 'url',
+      placeholder: 'Google+'
+    %>
+  </div>
+</div>
+<div align="center">Please enter at least email and phone.</div>

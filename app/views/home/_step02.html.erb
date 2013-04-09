@@ -2,4 +2,5 @@
   <h1>I'm Offering.</h1>
 </div>
 <%# Ideally we're getting the industry list from the api %>
-<%= f.input :offerings, label: false, collection: Industry.all, value_method: :description, label_method: :description, selected: @user.offerings.map(&:name), input_html: { multiple: true, id: 'offerings', style: 'width: 75%; margin: auto;' } %>
+<%= f.input :offerings, label: false, collection: Industry.all, value_method: :description, label_method: :description, selected: @user.offerings.map(&:name), input_html: { multiple: true, id: 'offerings', style: 'width: 65%; margin: auto;' } %>
+<div align="center">Please select a minimum of 3.</div>

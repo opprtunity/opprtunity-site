@@ -1,11 +1,11 @@
 <div>
   <div class="row">
-    <div class="span2">
+    <div class="span1">
       <%= link_to match.target do %>
-        <%= image_tag match.target.image, :class => 'thumbnail', height: 120, width: 120 %>
+        <%= image_tag match.target.image, :class => 'thumbnail', height: 80, width: 80 %>
       <% end %>
     </div>
-    <div class="span8">
+    <div class="span0">
       <h4>
         <%= link_to match.target do %>
           <%= match.target.first_name %> <%= match.target.last_name %> 

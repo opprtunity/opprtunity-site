@@ -83,59 +83,54 @@ class User < ActiveRecord::Base
     source_user = User.find(source_id)
     target_user = User.find(target_id)
 
-    match_type_actual = "none"
+    # match_type - 
+    # match_type_reverse - 
+
     match_type = "none"
     match_type_reverse = "none"
 
+    # if source needs what target offers by name match
     matched_needs = []
     for n in source_user.needs
       for t_o in target_user.offerings
       matched_needs.push(n.name) if n.name == t_o.name
       end
     end
-
     Rails.logger.info  "======== matched_needs: #{matched_needs}"
 
+    # if source offers what target needes by name match
     matched_offerings = []
     for o in source_user.offerings
       for t_n in target_user.needs
       matched_offerings.push(o.name) if o.name == t_n.name
       end
     end
-
     Rails.logger.info  "======== matched_offerings #{matched_offerings}"
 
-    # the source user's needs are offered by the target user
-    # the target user's offerings are needed by the source user
+    # if the source needs what the target offers, find the matches
     if matched_needs.length > 0
       needs_match = source_user.matches.find_or_initialize_by_target_id(target_id)
-
-      match_type_actual = "needs"
-
+      # add a new record to the match table if it doesn't exist
       if needs_match.new_record?
         needs_match.save!
-
         match_type = "needs"
       end
-
     end
 
-    # the source user's offerings are needed by the target user
-    # the target user's needs are offered by the source user
+    # if the source needs what the target offers, find the matches
     if matched_offerings.length > 0
       offerings_match = target_user.matches.find_or_initialize_by_target_id(source_id)
-
-      match_type_actual == "needs" ? "reciprocal" : "offerings"
-
       if offerings_match.new_record?
         offerings_match.save!
-
-        match_type == "needs" ? "reciprocal" : "offerings"
+        # if the match is already on needs then it's reciprocal, else just offerings
+        if match_type === "needs"
+          match_type = "reciprocal"
+        else
+          match_type = "offerings"
+        end
       end
-
     end
-
-    Rails.logger.info  "========= match_type_actual: #{match_type_actual}, match_type: #{match_type} "
+    Rails.logger.info  "========= match_type: #{match_type} "
 
     # used below
     match_type_reverse = "reciprocal" if match_type == "reciprocal"

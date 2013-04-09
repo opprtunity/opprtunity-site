@@ -24,16 +24,16 @@
     </div>
     <div class="span10">
       <div class="row">
-        <div class="span5">
-          <h3>Needs</h3>
+        <div class="span3">
+          <h3>I Need</h3>
           <ul>
             <% @user.needs.each do |need| %>
               <li><%= need.name %></li>
             <% end %>
           </ul>
         </div>
-        <div class="span5">
-          <h3>Offering</h3>
+        <div class="span7">
+          <h3>I Offer</h3>
           <ul>
             <% @user.offerings.each do |offering| %>
               <li><%= offering.name %></li>
@@ -42,6 +42,16 @@
         </div>
       </div>
       <hr />
+
+      <% if @user.about %>
+        <div class="row">
+          <div class="span10">
+            <h3>My Pitch</h3>
+            <p><%= @user.about %></p>
+          </div>
+        </div>
+        <hr />
+      <% end %>      
 
       <% if @user.matches.count > 0 %>
         <div class="row">

@@ -5,8 +5,9 @@
         <li data-target="#step1" class="active"><span class="badge badge-info">1</span>Hello<span class="chevron"></span></li>
         <li data-target="#step2"><span class="badge">2</span>I Offer<span class="chevron"></span></li>
         <li data-target="#step3"><span class="badge">3</span>I Need<span class="chevron"></span></li>
-        <li data-target="#step4"><span class="badge">4</span>Connect<span class="chevron"></span></li>
-        <li data-target="#step5"><span class="badge">5</span>Meet<span class="chevron"></span></li>
+        <li data-target="#step4"><span class="badge">4</span>My Pitch<span class="chevron"></span></li>
+        <li data-target="#step5"><span class="badge">5</span>Connect<span class="chevron"></span></li>
+        <li data-target="#step6"><span class="badge">6</span>Share!<span class="chevron"></span></li>
       </ul>
       <div class="actions">
         <button class="btn btn-prev" disabled=disabled><i class="icon-arrow-left"></i>Previous</button>
@@ -33,12 +34,15 @@
         <div class="step-pane" id="step5">
           <%= render 'home/step05', f:f %>
         </div>
+        <div class="step-pane" id="step6">
+          <%= render 'home/step06', f:f %>
+        </div>        
       </div>
     <% end %>
   </div>
   <div class="actions bottom">
-    <input type="button" class="btn btn-mini" id="wizard-prev" value="Previous" disabled=disabled>
-    <input type="button" class="btn btn-mini" id="wizard-next" value="Next">
+    <input type="button" class="btn btn-mini" id="wizard-prev" value="Previous " disabled=disabled>
+    <input type="button" class="btn btn-mini" id="wizard-next" value="Next ">
   </div>
 </div>
 

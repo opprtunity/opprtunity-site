@@ -18,14 +18,14 @@ $(function() {
   })
   $signupWizard.on('changed', function(e, data) {
     var item = $signupWizard.wizard('selectedItem');
-    if(item.step > 1 || item.step <= 5) {
+    if(item.step > 1 || item.step <= 6) {
       $('#wizard-prev').removeAttr('disabled');
     }
     if(item.step == 1) {
       $('#wizard-prev').attr('disabled', 'disabled');
     }
-    if(item.step == 5) {
-      $('#wizard-next').val('Finish').on('click', function(e) {
+    if(item.step == 6) {
+      $('#wizard-next').val('Finish ').on('click', function(e) {
         e.submit()
       });
     }

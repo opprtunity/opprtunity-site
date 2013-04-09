@@ -8,13 +8,14 @@
 
 <% if @match_type == "reciprocal" %>
 	<p><%= @target_user.first_name %> offers <%= @matched_needs %>, and is looking for <%= @matched_offerings %>.You are looking for <%= @matched_needs %>, and offer <%= @matched_offerings %>.</p>
-
 	<p>Sounds like a great match!</p>
 
 <% elsif @match_type == "needs" %>
 	<p><%= @target_user.first_name %> offers <%= @matched_needs %>, and may just be the person you are looking for.</p>
+
 <% elsif @match_type == "offerings" %>
 	<p><%= @target_user.first_name %> is looking for <%= @matched_offerings %> which you said that you offer.</p>
+	
 <% end %>
 
 <p>Because there is an opportunity for both of you to do business, we're sending <%= @target_user.first_name %> this email alert as well.  Here's how <%= @target_user.first_name %> likes to communicate:</p>
