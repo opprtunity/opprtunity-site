@@ -1,23 +1,15 @@
-<div class="slider-block">
-
-  <div id="myCarousel" class="carousel slide">
-    <!-- Carousel items -->
-    <div class="carousel-inner">
-      <div class="active item">
-        <%= image_tag 'img/slide_bg2.jpg' %>
-
-        <div class="caption middle-left container">
-          <p class="small white text-dark">The Search Is Over!</p>
-          <p class="large white text-pink">Let Opprtunity Find You<br/>Real Leads In Real-Time!</p>
+<div id="signup">
+  <div class="container">
+    <div class="row">
+      <div class="span6">
+        <h2>The Search is Over!</h2>
+        <p>Opprtunity is a lead generation tool that sends you alerts each time we discover an opportunity for you to do business.</p>
+        <div class="linkedin">
+          <a href="/auth/linkedin" class="popup" data-height="584" data-width="440">
+            <%= image_tag "signup-with-linkedin.png", :alt => "Signup with linkedin" %>
+          </a>
         </div>
-        <div class="caption middle-right container">
-          <p style="margin-top:25px">
-            <%= link_to '/auth/linkedin', :class => 'popup', data: { height: 584, width: 440 }  do %>
-              <%= image_tag('signup_with_linkedin.png') %>
-            <% end %>
-          </p>          
-        </div>        
+      </div>
     </div>
   </div>
-
 </div>

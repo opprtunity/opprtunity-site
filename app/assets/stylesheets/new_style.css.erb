@@ -1,0 +1,529 @@
+@font-face {
+	font-family: 'Klavika';
+	src: url('<%= asset_path("fonts/klavika-regular-webfont.eot") %>');
+	src: url('<%= asset_path("fonts/klavika-regular-webfont.eot?#iefix") %>') format('embedded-opentype'),
+		url('<%= asset_path("fonts/klavika-regular-webfont.woff") %>') format('woff'),
+		url('<%= asset_path("fonts/klavika-regular-webfont.ttf") %>') format('truetype'),
+		url('<%= asset_path("fonts/klavika-regular-webfont.svg#klavika_rgregular") %>') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Klavika';
+	src: url('<%= asset_path("fonts/klavika-bold-webfont.eot") %>');
+	src: url('<%= asset_path("fonts/klavika-bold-webfont.eot?#iefix") %>') format('embedded-opentype'),
+		url('<%= asset_path("fonts/klavika-bold-webfont.woff") %>') format('woff'),
+		url('<%= asset_path("fonts/klavika-bold-webfont.ttf") %>') format('truetype'),
+		url('<%= asset_path("fonts/klavika-bold-webfont.svg#klavika_bdbold") %>') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+#wrap {
+	overflow: hidden;
+}
+
+.navbar {
+	background: url(nav-bar-shade.png) no-repeat 50% -300px;
+	font-size: 24px;
+	font-weight: bold;
+	-webkit-transition-duration: .3s;
+	transition-duration: .3s;
+}
+
+.navbar-fixed-top.shade {
+	background-position: 50% 100%;
+	padding-bottom: 45px;
+}
+
+.navbar-static-top {
+	background: none;
+	padding-bottom: 0;
+}
+
+.navbar-fixed-top .navbar-inner,
+.navbar-static-top .navbar-inner {
+	border: 0;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	-ms-box-shadow: none;
+	-o-box-shadow: none;
+	box-shadow: none;
+}
+
+.navbar .brand {
+	margin-left: -10px;
+	padding: 8px 0 7px;
+}
+
+.navbar .nav.pull-right {
+	margin-right: -25px;
+}
+
+.navbar .nav > li > a {
+	padding: 25px;
+	outline: none;
+}
+
+.navbar .nav > .active > a,
+.navbar .nav > .active > a:hover,
+.navbar .nav > .active > a:focus {
+	box-shadow: none;
+}
+
+.navbar .top {
+	display: none;
+	float: none;
+	position: absolute;
+	right: -108px;
+	top: 15px;
+}
+
+.navbar .top a {
+	display: block;
+	background: url(top.png) no-repeat 50% 0;
+	font-size: 14px;
+	font-weight: normal;
+	padding: 0;
+	text-align: center;
+	text-transform: uppercase;
+	width: 33px;
+	color: #0072b1;
+}
+
+.navbar .top a:hover {
+	color: #0072b1;
+}
+
+#signup {
+	background: url(signup-bg.jpg) no-repeat 50% 0px;
+	background-size: cover;
+	color: #0072b1;
+	font-size: 30px;
+	height: 580px;
+	line-height: 36px;
+	padding: 0;
+	text-shadow: 0 1px #fff;
+}
+
+#signup h2 {
+	font-size: 48px;
+	line-height: 50px;
+	margin: 90px 0 17px;
+}
+
+#signup p {
+	margin: 0;
+}
+
+#signup .linkedin {
+	margin: 60px 0 0;
+}
+
+.section {
+	padding: 45px 0 0;
+}
+
+.section h2 {
+	color: #0072b1;
+	font-size: 60px;
+	font-weight: bold;
+	line-height: 60px;
+	margin: 0;
+	text-align: center;
+}
+
+#how-it-works {
+	font-size: 29px;
+	line-height: 36px;
+}
+
+#how-it-works .row {
+	padding: 40px 0;
+}
+
+#how-it-works .text {
+	position: relative;
+	z-index: 1;
+}
+
+#how-it-works h3 {
+	color: #0072b1;
+	font-size: 42px;
+	line-height: 48px;
+}
+
+#how-it-works h3 small {
+	color: #898989;
+	font-size: 24px;
+	font-weight: bold;
+	display: block;
+}
+
+#how-it-works .thumb {
+	margin: -14px -55px 0 -95px;
+	position: relative;
+	z-index: 0;
+}
+
+.founders {
+	background: url(founders-bg.jpg) repeat 0 0;
+	border-top: 1px solid #cbcbcb;
+	border-bottom: 1px solid #cbcbcb;
+	margin: 145px 0 0;
+	padding: 0 0 40px;
+}
+
+.founders .thumb {
+	margin: -114px 0 0;
+}
+
+.founder {
+	text-align: center;
+	color: #464646;
+	font-size: 18px;
+	line-height: 24px;
+	padding: 0 10px;
+}
+
+.founder h3 {
+	color: #0072b1;
+	font-size: 42px;
+	line-height: 38px;
+	margin: 25px 0 0;
+	text-shadow: 0 1px #fff;
+}
+
+.founder h3 small {
+	display: block;
+	color: #0072b1;
+	font-size: 24px;
+	font-weight: normal;
+	padding: 14px 0 0;
+}
+
+.founder p {
+	margin: 0;
+}
+
+.founder .social {
+	margin: 30px 0;
+}
+
+.founder .social a {
+	background: url(icons-social.png) no-repeat 0 0;
+	display: inline-block;
+	height: 27px;
+	margin: 0 3px;
+	vertical-align: top;
+	width: 27px;
+}
+
+.founder .social a span {
+	display: none;
+}
+
+.founder .social a.icon-in {
+	background-position: -30px 0;
+}
+
+#contact {
+	background: #0072b1;
+	color: #fff;
+	padding: 0;
+}
+
+#contact a {
+	color: #fff;
+	text-decoration: underline;
+}
+
+#contact a:hover {
+	text-decoration: none;
+}
+
+#contact .map {
+	border: 5px solid #005888;
+	border-bottom: 0;
+	margin: -5px -5px 0 0;
+}
+
+#contact ul,
+#contact li {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#contact li {
+	padding: 35px 0 0;
+}
+
+#contact .icon,
+#contact .text {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#contact .icon {
+	background: url(icons-contacts.png) no-repeat 0 0;
+	height: 80px;
+	margin: 0 42px 0 -10px;
+	width: 80px;
+}
+
+#contact .icon-email {
+	background-position: -100px 0;
+}
+
+#contact .text {
+	font-size: 30px;
+	line-height: 36px;
+	width: 340px;
+}
+
+#footer .start {
+	padding: 42px 0 0;
+}
+
+#footer .start .text {
+	background: #88c1d2 url(start-arrow.png) no-repeat 100% 0;
+	color: #fff;
+	float: left;
+	font-size: 28px;
+	height: 66px;
+	line-height: 66px;
+	padding: 0 30px 0 0;
+	text-align: center;
+	width: 635px;
+}
+
+#footer .linkedin {
+	float: right;
+	padding: 4px 0 0;
+}
+
+#footer .social,
+#footer .copy {
+	line-height: 25px;
+	padding: 25px 0;
+}
+
+#footer .copy {
+	text-align: right;
+}
+
+#footer .follow {
+	float: left;
+}
+
+#footer .follow.fb {
+	width: 100px;
+}
+
+@media (max-width: 979px) {
+
+	.navbar-fixed-top {
+		margin-bottom: 0;
+	}
+
+	.navbar .top {
+		display: none !important;
+	}
+
+	.navbar .brand {
+		margin-left: 10px;
+	}
+
+	.section h2 {
+		font-size: 48px;
+		line-height: 48px;
+	}
+
+	#signup {
+		background-position: 50% 0;
+		font-size: 24px;
+		height: 450px;
+		line-height: 28px;
+		padding: 0 100px 0 20px;
+	}
+
+	#signup h2 {
+		font-size: 38px;
+		line-height: 42px;
+		margin: 55px 0 20px;
+	}
+
+	#how-it-works {
+		font-size: 23px;
+		line-height: 28px;
+	}
+
+	#how-it-works h3 {
+		font-size: 34px;
+		line-height: 38px;
+	}
+
+	#how-it-works .thumb {
+		margin: 0 -18px;
+		width: 340px;
+	}
+
+	#contact li {
+		padding: 28px 0 0;
+	}
+
+	#contact .icon {
+		background-size: 160px 64px;
+		height: 64px;
+		margin: 0 10px 0 0;
+		width: 64px;
+	}
+
+	#contact .icon-email {
+		background-position: -80px 0;
+	}
+
+	#contact .text {
+		font-size: 24px;
+		line-height: 28px;
+		width: 272px;
+	}
+
+	#contact .map {
+		margin-right: -14px;
+	}
+
+	#footer .start .text {
+		font-size: 18px;
+		font-weight: bold;
+		width: 412px;
+	}
+
+	#footer .linkedin {
+		padding-top: 6px;
+	}
+
+}
+
+@media (max-width: 767px) {
+
+	#wrap {
+		overflow: visible;
+	}
+
+	#signup {
+		background-position: 0 0;
+		margin: 0 -20px;
+	}
+
+	#how-it-works .row {
+		padding-bottom: 0;
+	}
+
+	#how-it-works .thumb {
+		float: none;
+		margin: 0;
+		width: 100%;
+	}
+
+	#about h2 {
+		margin-bottom: 20px;
+	}
+
+	.founders {
+		margin: 0 -20px;
+		padding: 0 20px 40px;
+	}
+
+	.founders .thumb {
+		margin: 40px 0 0;
+	}
+
+	#contact {
+		margin: 0 -20px;
+		padding: 0 20px;
+	}
+
+	#contact .map {
+		border: 0;
+		margin: 20px 0 0;
+		text-align: center;
+	}
+
+	#contact .map img {
+		border: 5px solid #005888;
+		border-bottom: 0;
+	}
+
+	#footer .start {
+		display: none;
+		text-align: center;
+	}
+
+	#footer .copy {
+		text-align: center;
+	}
+
+	#footer .social {
+		text-align: center;
+		padding-bottom: 0;
+	}
+
+	#footer .follow {
+		display: inline-block;
+		float: none;
+		vertical-align: top;
+	}
+
+}
+
+@media (max-width: 480px) {
+
+	.navbar .brand {
+		margin-left: 10px;
+		padding-top: 19px;
+		width: 150px;
+	}
+
+	#signup {
+		padding: 0 20px;
+	}
+
+	#signup h2 {
+		margin: 20px 0;
+	}
+
+	#signup .linkedin {
+		width: 200px;
+	}
+
+	.section h2 {
+		font-size: 40px;
+	}
+
+	#how-it-works {
+		font-size: 20px;
+		line-height: 26px;
+	}
+
+	#how-it-works h3 {
+		font-size: 25px;
+	}
+
+	#how-it-works h3 small {
+		font-size: 15px;
+	}
+
+	#contact .icon {
+		display: none;
+	}
+
+	#contact .text {
+		font-size: 20px;
+		line-height: 26px;
+		width: auto;
+		vertical-align: top;
+	}
+}
