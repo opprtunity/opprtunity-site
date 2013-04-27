@@ -9,20 +9,25 @@
       <a class="brand" href="/"><%= image_tag 'logo.jpg' %></a>
       <div class="nav-collapse">
         <ul class="nav pull-right">
-          <li><a href="/">
-            <% if current_user %>
-              My Profile
-            <% else %>
-              Home
-            <% end %>
-          </a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
-          <li><% if current_user %>
-            <%= link_to "Sign out", signout_path %>
+          <% if current_user %>
+            <li><a href="/">My Profile</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
           <% else %>
-            <%= link_to "Sign In", '/auth/linkedin' %>
-          <% end %></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          <% end %>
+
+          <li>
+            <% if current_user %>
+            <li class="signout">
+              <%= link_to "Sign out", signout_path %>
+            </li>
+            <% else %>
+              <li class="top"><a href="#signup">Top</a></li>
+            <% end %>
+          </li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
