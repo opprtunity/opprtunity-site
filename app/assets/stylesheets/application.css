@@ -9,21 +9,16 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require typica
+ * require typica
  *= require select2
  *= require_tree .
+ *=- include
  */
 
 .popup {
 	display: block;
 }
 
-.navbar ul.nav {
-  margin-top: 20px;
-}
-
-.navbar ul.nav > li > a {
-  color: #333;
-  padding: 10px 10px 11px;
-  text-shadow: none;
+body{
+  padding-top: 70px;
 }
