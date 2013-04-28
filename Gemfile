@@ -65,10 +65,12 @@ gem 'delayed_job_active_record'
 gem 'workless', '~> 1.1.1'
 
 group :assets do
-  gem "twitter-bootstrap-rails", '2.2.3'
+  #gem "twitter-bootstrap-rails", '2.2.3'
   gem "therubyracer", '0.11.3'
 end
 
+
+gem "twitter-bootstrap-rails", '2.2.3'
 gem "less-rails", '2.2.6'
 gem "simple_form", '2.0.4'
 gem "unicorn", '4.6.0'
