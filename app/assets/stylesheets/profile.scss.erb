@@ -49,6 +49,11 @@ body {
 	box-shadow: none;
 }
 
+.navbar .brand {
+	margin-left: -10px;
+	padding: 8px 0 7px;
+}
+
 .navbar ul.nav {
 	margin-top: 0;
 }
@@ -88,9 +93,9 @@ hr {
 }
 
 .user-thumb .thumb {
-	border: 5px solid #0073ac;
+	/* border: 5px solid #0073ac; */ /* Fixes square profile picture */
 	border-radius: 50px;
-	box-shadow: none;
+	box-shadow: 0px 0px 0px 5px #0073ac;
 	padding: 0;
 	width: 70px;
 	height: 70px;

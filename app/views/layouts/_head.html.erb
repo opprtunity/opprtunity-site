@@ -13,6 +13,15 @@
   <%= localstorage_shim %>
   <%= stylesheet_link_tag "application", :media => "all" %>
 
+  <% if current_user %>
+    <% if params[:action] != "index" %>
+        <%= stylesheet_link_tag "landing" %>
+        <% end %>
+    <%= stylesheet_link_tag "profile" %>
+  <% else %>
+    <%= stylesheet_link_tag "landing" %>
+  <% end %>
+
   <!-- For third-generation iPad with high-resolution Retina display: -->
   <!-- Size should be 144 x 144 pixels -->
   <%= favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
