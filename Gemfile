@@ -65,7 +65,6 @@ gem 'delayed_job_active_record'
 gem 'workless', '~> 1.1.1'
 
 group :assets do
-  #gem "twitter-bootstrap-rails", '2.2.3'
   gem "therubyracer", '0.11.3'
 end
 
@@ -78,5 +77,5 @@ gem 'localstorageshim-rails', '1.0.2'
 gem 'omniauth-linkedin', '0.0.8'
 gem 'linkedin', '0.3.7'
 gem "fuelux-rails", '2.2.0'
-gem "select2-rails", '3.2.1'
+gem "select2-rails", '3.3.1'
 gem 'sucker_punch', '0.2'

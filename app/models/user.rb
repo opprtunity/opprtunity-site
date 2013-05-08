@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
   include RocketPants::Cacheable
 
-  attr_accessible :about, :company_name, :company_url, :email, :first_name, 
+  attr_accessible :about, :company_name, :company_url, :email, :first_name,
                   :google_plus, :last_name, :linked_in, :phone, :skype, :zip_code,
-                  :provider, :uid, :offerings, :needs
+                  :provider, :uid, :offerings, :needs, :user_slug
 
   reverse_geocoded_by :latitude, :longitude
   #  after_validation :reverse_geocode  # auto-fetch address
@@ -72,19 +72,25 @@ class User < ActiveRecord::Base
       user.image = auth_hash['info']['image']
       geo = Geocoder.search(ip).first
       user.zip_code ||= geo.data['zipcode'] if geo
+
+      slug = ("#{user.first_name.downcase}-#{user.last_name.downcase}").gsub(" ", "-")
+      user.user_slug = ActiveSupport::Inflector.transliterate(slug)
+      user_slug_uniquess = User.where("user_slug LIKE :prefix", prefix: "#{slug}%").length
+      user.user_slug += user_slug_uniquess if user_slug_uniquess > 0
+
       user.save!
     end
-  end  
+  end
 
   def self.update_match(source_id, target_id)
 
     Rails.logger.info "==== running update_match for #{source_id} and #{target_id}"
-    
+
     source_user = User.find(source_id)
     target_user = User.find(target_id)
 
-    # match_type - 
-    # match_type_reverse - 
+    # match_type -
+    # match_type_reverse -
 
     match_type = "none"
     match_type_reverse = "none"

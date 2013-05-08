@@ -10,6 +10,7 @@ Opprtunity::Application.routes.draw do
   resources :matches
   resources :users
 
+  match '/user/:slug_name', to: 'users#show_by_slug', as: 'user_slug'
   match '/users/:id/matches', to: 'users#matches'
 
   namespace :api do
@@ -22,7 +23,7 @@ Opprtunity::Application.routes.draw do
         # change the route restrictions as needed
         resources :needs, only: [:get]
         resources :offerings, only: [:get]
-        member do 
+        member do
           get 'matches'
           scope '/meetings' do
             get 'upcoming'

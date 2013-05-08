@@ -1,5 +1,5 @@
 $(function() {
-  
+
   var $signupWizard = $('#signupWizard');
   $signupWizard.wizard();
 
@@ -8,6 +8,19 @@ $(function() {
     $('#wizard-next').val('Next')
   });
   $('#wizard-next').on('click', function () {
+    var item = $signupWizard.wizard('selectedItem');
+    if(item.step == 2) {
+      if ( $("#step2 .select2-search-choice").length < 2) {
+        $("#step2 .notice")[0].style.color = "red";
+        return false;
+      }
+    }
+    if (item.step == 3) {
+      if ( $("#step3 .select2-search-choice").length < 2) {
+        $("#step3 .notice")[0].style.color = "red";
+        return false;
+      }
+    }
     $signupWizard.wizard('next');
   })
 
@@ -37,9 +50,11 @@ $(function() {
   $('#offerings').select2({
     placeholder: 'Select an Industry',
     closeOnSelect: false,
+    maximumSelectionSize: 5,
   });
   $('#needs').select2({
     placeholder: 'Select an Industry',
     closeOnSelect: false,
-  });  
+    maximumSelectionSize: 5,
+  });
 })

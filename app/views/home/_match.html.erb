@@ -1,14 +1,14 @@
 <div>
   <div class="row">
     <div class="span1">
-      <%= link_to match.target do %>
+      <%= link_to user_slug_path(match.target.user_slug) do %>
         <%= image_tag match.target.image, :class => 'thumbnail', height: 80, width: 80 %>
       <% end %>
     </div>
     <div class="span0">
       <h4>
-        <%= link_to match.target do %>
-          <%= match.target.first_name %> <%= match.target.last_name %> 
+        <%= link_to user_slug_path(match.target.user_slug) do %>
+          <%= match.target.first_name %> <%= match.target.last_name %>
         <% end %>
         <%= match.target.location %> (<%= match.target.zip_code %>)
       </h4>
@@ -16,7 +16,7 @@
       <p>Offering: <%= match.target.offerings.map(&:name).join(', ') %></p>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="span10">
       <p style="margin: 18px 0"><%= match.target.about %></p>
