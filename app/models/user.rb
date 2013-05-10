@@ -76,7 +76,7 @@ class User < ActiveRecord::Base
       slug = ("#{user.first_name.downcase}-#{user.last_name.downcase}").gsub(" ", "-")
       user.user_slug = ActiveSupport::Inflector.transliterate(slug)
       user_slug_uniquess = User.where("user_slug LIKE :prefix", prefix: "#{slug}%").length
-      user.user_slug += user_slug_uniquess if user_slug_uniquess > 0
+      user.user_slug += user_slug_uniquess.to_s if user_slug_uniquess > 0
 
       user.save!
     end
