@@ -31,60 +31,78 @@
   </script>
 
   <div class="page-profile">
-      <div class="row">
-        <div class="span3">
-          <div class="user-details">
-            <div class="user-thumb">
-              <a href="<%= @user.linked_in %>" target="_blank">
-                <%= image_tag @user.image, :class => 'thumb', :style => 'margin-left:10px' %>
-              </a>
-            </div>
-            <h3><%= @user.first_name %> <%= @user.last_name %></h3>
-            <p><%= @user.location %> (<%= @user.zip_code %>) </p>
-            <ul class="contacts">
-              <% unless @user.linked_in.blank? %><li class="linkedin"><%= link_to 'LinkedIn', @user.linked_in %></li><% end %>
-              <!--
-              <%  unless @user.google_plus.blank? %><li><%= link_to '<i class="icon-google-plus-sign"></i>Google+'.html_safe, @user.google_plus %></li><% end %>
-              <% unless @user.company_url.blank? %><li><%= link_to '<i class="icon-bookmark"></i>Company'.html_safe, @user.company_url %></li><% end %>
-              -->
-              <% unless @user.phone.blank? %><li class="phone"></i><%= @user.phone %></span></li><% end %>
-              <% unless @user.skype.blank? %><li class="skype"><a href="callto:<%= @user.skype %>"><%= @user.skype %></a></li><% end %>
-            </ul>
+    <div class="row">
+      <div class="span3">
+        <div class="user-details">
+          <div class="user-thumb">
+            <a href="<%= @user.linked_in %>" target="_blank">
+              <%= image_tag @user.image, :class => 'thumb', :style => 'margin-left:10px' %>
+            </a>
           </div>
+          <h3><%= @user.first_name %> <%= @user.last_name %></h3>
+          <% if current_user %>
+            <% if current_user.id == @user.id or current_user.matching_users.include? @user or @user.matching_users.include? current_user %>
+              <p><%= @user.location %> (<%= @user.zip_code %>) </p>
+              <ul class="contacts">
+                <% unless @user.linked_in.blank? %><li class="linkedin"><%= link_to 'LinkedIn', @user.linked_in %></li><% end %>
+                <!--
+                <%  unless @user.google_plus.blank? %><li><%= link_to '<i class="icon-google-plus-sign"></i>Google+'.html_safe, @user.google_plus %></li><% end %>
+                <% unless @user.company_url.blank? %><li><%= link_to '<i class="icon-bookmark"></i>Company'.html_safe, @user.company_url %></li><% end %>
+                -->
+                <% unless @user.phone.blank? %><li class="phone"></i><%= @user.phone %></span></li><% end %>
+                <% unless @user.skype.blank? %><li class="skype"><a href="callto:<%= @user.skype %>"><%= @user.skype %></a></li><% end %>
+              </ul>
+            <% end %>
+          <% end %>
         </div>
-        <div class="span9">
-          <div class="row">
-            <div class="span4 pull-left">
-              <div class="i-need">
-                <h2>I Need</h2>
-                <ul>
-                  <% @user.needs.each do |need| %>
-                    <li><%= need.name %></li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>
-            <div class="span5 pull-right">
-              <div class="i-offer">
-                <h2>I Offer</h2>
-                <ul>
-                  <% @user.offerings.each do |offering| %>
-                    <li><%= offering.name %></li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <hr />
-          <% if @user.about %>
+      </div>
+      <div class="span9">
+        <% if current_user %>
+          <% if current_user.id == @user.id or current_user.matching_users.include? @user or @user.matching_users.include? current_user %>
             <div class="row">
-              <div class="span9">
-                <h1>My Pitch</h1>
-                <p><%= @user.about %></p>
+              <div class="span4 pull-left">
+                <div class="i-need">
+                  <h2>I Need</h2>
+                  <ul>
+                    <% @user.needs.each do |need| %>
+                      <li><%= need.name %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+              <div class="span5 pull-right">
+                <div class="i-offer">
+                  <h2>I Offer</h2>
+                  <ul>
+                    <% @user.offerings.each do |offering| %>
+                      <li><%= offering.name %></li>
+                    <% end %>
+                  </ul>
+                </div>
               </div>
             </div>
             <hr />
+            <% if @user.about %>
+              <div class="row">
+                <div class="span9">
+                  <h1>My Pitch</h1>
+                  <p><%= @user.about %></p>
+                </div>
+              </div>
+              <hr />
+            <% end %>
           <% end %>
+        <% end %>
+        <% if @user.matches.count > 0 and current_user.id == @user.id %>
+          <div class="row">
+            <div class="span9">
+              <h3>Top Matches</h3>
+              <% @user.matches.each do |match| %>
+                <%= render 'home/match', match: match %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
         </div>
       </div>
 

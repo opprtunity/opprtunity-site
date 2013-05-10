@@ -12,7 +12,8 @@
  * require typica
  *= require select2
  *= require_tree .
- *=- include
+ *= stub profile.scss.erb
+ *= stub landing.css.erb
  */
 
 .popup {

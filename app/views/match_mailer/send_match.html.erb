@@ -15,7 +15,7 @@
 
 <% elsif @match_type == "offerings" %>
 	<p><%= @target_user.first_name %> is looking for <%= @matched_offerings %> which you said that you offer.</p>
-	
+
 <% end %>
 
 <p>Because there is an opportunity for both of you to do business, we're sending <%= @target_user.first_name %> this email alert as well. Here's how <%= @target_user.first_name %> likes to communicate:</p>
@@ -29,7 +29,7 @@
 </ul>
 </p>
 
-<p>To learn more about <%= @target_user.first_name %>, you can also <a href="http://www.opprtunity.com/users/<%= @target_user.id %>">visit his Opprtunity profile</a>.</p>
+<p>To learn more about <%= @target_user.first_name %>, you can also <a href="http://www.opprtunity.com/user/<%= @target_user.user_slug %>">visit his / her Opprtunity profile</a>.</p>
 
 <p>Good Luck!</p>
 
