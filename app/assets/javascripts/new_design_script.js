@@ -16,13 +16,13 @@ jQuery(function($){
 			scrollTop: target_top
 		}, 1000, 'easeOutQuad');
 	});
-	
+
 	var $top = $('.navbar .top').eq(0),
 	$navbar_top = $('.navbar-fixed-top').eq(0),
 	navbar_shaded = false;
 
 	$(window).scroll(function(test){
-		if($(window).scrollTop() > 450) {
+		if($(window).scrollTop() > 1) {
 			if(navbar_shaded) {
 				return
 			}

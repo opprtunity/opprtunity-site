@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     # This section feels kludgy but we need to translate from industry codes
     # to the text expected by needs/offerings; maybe we need to refactor the
     # database schema
-    params[:user][:offerings] = params[:user][:offerings].map do |i| 
+    params[:user][:offerings] = params[:user][:offerings].map do |i|
       industry = Industry.where(description: i).first
       Offering.new(name: industry.description) if industry
     end.compact
@@ -38,7 +38,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find params[:id]
+    @user = User.find(params[:id])
+    redirect_to user_slug_path(@user.user_slug)
+  end
+
+  def show_by_slug
+    @user = User.find_by_user_slug(params[:slug_name])
     render 'home/index'
   end
 
@@ -55,7 +60,7 @@ class UsersController < ApplicationController
 
   #   expose @matching_users
 
-  # end  
+  # end
 
   def matches
     @user = User.find(params[:id])
@@ -69,19 +74,19 @@ class UsersController < ApplicationController
   def past
     user = User.find(params[:id])
     expose user.past_meetings
-  end  
+  end
 
   def create
     user = User.create!(params[:user])
     expose user
-  end  
+  end
 
   def destroy
     user = User.find(params[:id])
     user.delete
   end
 
-  private 
+  private
 
     def find_and_process_matches(user)
       matching_users = user.matching_users
